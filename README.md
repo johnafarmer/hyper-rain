@@ -8,7 +8,7 @@
   <img src="https://github.com/johnafarmer/hyper-rain/blob/main/hyper-rain.gif" alt="hyper-rain demo" width="600">
 </p>
 
-## 🎭 What is this?
+## 🤔 What is this?
 
 `hyper-rain` brings that iconic green digital rain effect to your Hyper terminal! Inspired by the amazing [hyper-cat](https://github.com/Aaronius/hyper-cat), this plugin adds a touch of cyberpunk aesthetic to your coding sessions.
 
@@ -23,15 +23,8 @@ The effect activates whenever you type and gracefully fades away when you pause 
 
 ## 📦 Installation
 
-### Using Hyper's CLI
-
-```bash
-hyper install hyper-rain
-```
-
-### Manual Installation
-
-Add `hyper-rain` to the plugins array in your `~/.hyper.js` config file:
+1. Clone this repository and copy the hyper-rain folder to your /Users/yourusername/.hyper-plugins/local folder. (**Tip**:Press cmd + shift + . to show the hidden .hyper-plugins folder in finder)
+2. Add `hyper-rain` to the local plugins array in your `~/.hyper.js` config file:
 
 ```javascript
 module.exports = {
@@ -39,6 +32,14 @@ module.exports = {
   plugins: ['hyper-rain']
 }
 ```
+
+### Why Local Only? 😭
+
+CBA TBH 🤷‍♂️ 
+
+and the npm site thinks im a robot so i cant create an account to publish it 🥺 
+
+i did try (for like 30 seconds 🫡)
 
 ## ⚙️ Configuration
 
