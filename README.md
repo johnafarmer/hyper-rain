@@ -1,27 +1,25 @@
 # hyper-rain 🌧️
 
-> Matrix-style digital rain for your Hyper terminal - because why should Neo have all the fun?
+> Digital code rain for your Hyper terminal - because why should Neo have all the fun?
 
-[![npm version](https://img.shields.io/npm/v/hyper-rain.svg)](https://www.npmjs.com/package/hyper-rain)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/demo.gif" alt="hyper-rain demo" width="600">
+  <img src="about::blank" alt="hyper-rain demo coming soon" width="600">
 </p>
 
 ## 🎭 What is this?
 
-Ever wanted to feel like you're hacking into the Matrix while writing your everyday code? `hyper-rain` brings the iconic green digital rain effect to your Hyper terminal! Inspired by the amazing [hyper-cat](https://github.com/Aaronius/hyper-cat), this plugin adds a touch of cyberpunk aesthetic to your coding sessions.
+`hyper-rain` brings that iconic green digital rain effect to your Hyper terminal! Inspired by the amazing [hyper-cat](https://github.com/Aaronius/hyper-cat), this plugin adds a touch of cyberpunk aesthetic to your coding sessions.
 
 The effect activates whenever you type and gracefully fades away when you pause - it's subtle enough not to interfere with your work but cool enough to make you feel like a movie hacker.
 
 ## ✨ Features
 
-- **Matrix-style falling characters** - Authentic Japanese katakana mixed with alphanumeric characters
 - **Type-activated animation** - The rain starts when you type and fades when you stop
 - **Customizable appearance** - Adjust opacity and blur to your liking
 - **Performance optimized** - Smooth animations that won't slow down your terminal
-- **Green terminal theme** - Automatically applies Matrix-green colors during the effect
+- **Green terminal theme** - Automatically applies green colors during the effect
 
 ## 📦 Installation
 
@@ -92,9 +90,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - Inspired by [hyper-cat](https://github.com/Aaronius/hyper-cat) - the OG of fun Hyper plugins
-- The Matrix (1999) - for the iconic digital rain effect
-- The Hyper terminal team - for making terminals fun again
+- The Hyper terminal team - for making terminals fun
 
 ---
 
-<p align="center">Made with 💚 and a love for unnecessary terminal effects</p>
+<p align="center">Made by John ✌️ & Claude 🧡</p>
