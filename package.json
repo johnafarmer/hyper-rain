@@ -1,0 +1,24 @@
+{
+  "name": "hyper-rain",
+  "version": "1.0.0",
+  "description": "digital code rain effect for Hyper terminal",
+  "main": "index.js",
+  "keywords": [
+    "hyper",
+    "hyper-plugin",
+    "code",
+    "rain",
+    "terminal",
+    "effect"
+  ],
+  "author": "https://x.com/rahnolds",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnafarmer/hyper-rain"
+  },
+  "files": [
+    "index.js"
+  ],
+  "dependencies": {}
+}
