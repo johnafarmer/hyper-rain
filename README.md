@@ -5,7 +5,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 <p align="center">
-  <img src="about::blank" alt="hyper-rain demo coming soon" width="600">
+  <img src="https://github.com/johnafarmer/hyper-rain/blob/main/hyper-rain.gif" alt="hyper-rain demo" width="600">
 </p>
 
 ## 🎭 What is this?
