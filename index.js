@@ -29,7 +29,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
     }
 
     onDecorated(term) {
-      console.log('[hyper-rain] onDecorated called with term:', term);
       if (this.props.onDecorated) {
         this.props.onDecorated(term);
       }
@@ -37,7 +36,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._termDiv = term ? term.termRef : null;
       
       if (this._termDiv) {
-        console.log('[hyper-rain] Terminal div found, initializing...');
         // Store reference to this instance for middleware access
         const termElement = this._termDiv.querySelector('.term_term');
         if (termElement) {
@@ -56,19 +54,16 @@ exports.decorateTerm = (Term, { React, notify }) => {
         this._startAnimation();
         this._startContentMonitoring();
       } else {
-        console.log('[hyper-rain] No terminal div found!');
       }
     }
 
     _initOverlay() {
-      console.log('[hyper-rain] Creating overlay...');
       this._overlay = document.createElement('div');
       this._overlay.classList.add('hyper-rain-overlay');
       this._termDiv.insertBefore(this._overlay, this._termDiv.firstChild);
     }
     
     _initCanvas() {
-      console.log('[hyper-rain] Creating canvas...');
       this._canvas = document.createElement('canvas');
       this._canvas.style.position = 'absolute';
       this._canvas.style.top = '0';
@@ -94,10 +89,8 @@ exports.decorateTerm = (Term, { React, notify }) => {
           if (rect.width > 0 && rect.height > 0) {
             this._canvas.width = rect.width;
             this._canvas.height = rect.height;
-            console.log('[hyper-rain] Canvas resized to:', rect.width, 'x', rect.height);
             this._initRain();
           } else {
-            console.log('[hyper-rain] Invalid canvas dimensions, retrying...');
             setTimeout(updateCanvasSize, 100);
           }
         }
@@ -114,7 +107,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
       if (!this._canvas) return;
       
       const columns = Math.floor(this._canvas.width / CHAR_SIZE);
-      console.log('[hyper-rain] Initializing', columns, 'columns of rain');
       this._raindrops = [];
       
       for (let i = 0; i < columns; i++) {
@@ -130,7 +122,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
 
     _drawRain(timestamp) {
       if (!this._ctx || !this._canvas) {
-        console.log('[hyper-rain] No context or canvas, skipping draw');
         return;
       }
       
@@ -182,7 +173,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
         });
         
         if (drop.chars.length === 0 && Math.random() > 0.99) {
-          console.log('[hyper-rain] Drawing characters at', drop.x, drop.y);
         }
         
         if (drop.chars.length > 0) {
@@ -197,7 +187,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
     }
 
     _startAnimation() {
-      console.log('[hyper-rain] Starting animation...');
       const animate = (timestamp) => {
         this._drawRain(timestamp);
         this._animationId = requestAnimationFrame(animate);
@@ -216,11 +205,9 @@ exports.decorateTerm = (Term, { React, notify }) => {
     updateRainEffect(typing) {
       if (typing) {
         if (!this.state.rainActive) {
-          console.log('[hyper-rain] Activating rain effect');
           this.setState({ rainActive: true });
           if (this._overlay) {
             this._overlay.classList.add('hyper-rain-active');
-            console.log('[hyper-rain] Added active class to overlay');
           }
           if (this._termDiv) {
             this._termDiv.classList.add('hyper-rain-terminal-active');
@@ -229,7 +216,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
         
         clearTimeout(this._activeTimeout);
         this._activeTimeout = setTimeout(() => {
-          console.log('[hyper-rain] Deactivating rain effect');
           this.setState({ rainActive: false });
           if (this._overlay) {
             this._overlay.classList.remove('hyper-rain-active');
@@ -247,7 +233,6 @@ exports.decorateTerm = (Term, { React, notify }) => {
         if (this._termDiv) {
           const currentContent = this._termDiv.textContent || '';
           if (currentContent !== lastContent) {
-            console.log('[hyper-rain] Content change detected via monitoring');
             this.updateRainEffect(true);
             lastContent = currentContent;
           }
