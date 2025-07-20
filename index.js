@@ -1,4 +1,4 @@
-const DEFAULT_RAIN_COLOR = '#0F0';
+const DEFAULT_RAIN_COLOR = '#2D88C9';
 const CHAR_SIZE = 14;
 
 const ACTIVE_DURATION = 250;
@@ -10,8 +10,8 @@ let globalConfig = {
   colors: {
     rain: DEFAULT_RAIN_COLOR,
     terminal: {
-      foreground: DEFAULT_RAIN_COLOR,
-      cursor: DEFAULT_RAIN_COLOR,
+      foreground: '#2D88C9',
+      cursor: '#2D88C9',
       enableEffect: true
     }
   }
@@ -33,7 +33,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._animationId = null;
       this._lastTime = 0;
       this._activeTimeout = null;
-      this._matrixChars = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      this._matrixChars = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ🦅✨🏔️';
     }
     
     // Helper function to convert hex color to RGB values
