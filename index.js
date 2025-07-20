@@ -1,4 +1,4 @@
-const COLOR = '#0F0';
+const DEFAULT_RAIN_COLOR = '#0F0';
 const CHAR_SIZE = 14;
 
 const ACTIVE_DURATION = 250;
@@ -6,7 +6,15 @@ const TYPING_CHECK_INTERVAL = 100; // Check for changes every 100ms
 
 let globalConfig = {
   opacity: 0.4,  // Slightly increased opacity for better visibility
-  blur: '0.5px'
+  blur: '0.5px',
+  colors: {
+    rain: DEFAULT_RAIN_COLOR,
+    terminal: {
+      foreground: DEFAULT_RAIN_COLOR,
+      cursor: DEFAULT_RAIN_COLOR,
+      enableEffect: true
+    }
+  }
 };
 
 exports.decorateTerm = (Term, { React, notify }) => {
@@ -26,6 +34,16 @@ exports.decorateTerm = (Term, { React, notify }) => {
       this._lastTime = 0;
       this._activeTimeout = null;
       this._matrixChars = 'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+    
+    // Helper function to convert hex color to RGB values
+    _hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : { r: 0, g: 255, b: 0 }; // Default to green if parsing fails
     }
 
     onDecorated(term) {
@@ -166,9 +184,10 @@ exports.decorateTerm = (Term, { React, notify }) => {
         });
         
         drop.chars.forEach((char, index) => {
-          const brightness = Math.floor(255 * char.opacity * drop.brightness * 1.3); // Increased brightness by 30%
-          const clampedBrightness = Math.min(255, brightness); // Ensure we don't exceed 255
-          this._ctx.fillStyle = `rgba(0, ${clampedBrightness}, 0, ${char.opacity})`;
+          const rgb = this._hexToRgb(globalConfig.colors.rain);
+          const brightness = char.opacity * drop.brightness * 1.3; // Increased brightness by 30%
+          const clampedBrightness = Math.min(1, brightness); // Ensure we don't exceed 1
+          this._ctx.fillStyle = `rgba(${Math.floor(rgb.r * clampedBrightness)}, ${Math.floor(rgb.g * clampedBrightness)}, ${Math.floor(rgb.b * clampedBrightness)}, ${char.opacity})`;
           this._ctx.fillText(char.char, drop.x, char.y);
         });
         
@@ -178,7 +197,7 @@ exports.decorateTerm = (Term, { React, notify }) => {
         if (drop.chars.length > 0) {
           const lastChar = drop.chars[drop.chars.length - 1];
           this._ctx.shadowBlur = 8;
-          this._ctx.shadowColor = COLOR;
+          this._ctx.shadowColor = globalConfig.colors.rain;
           this._ctx.fillStyle = '#FFF';
           this._ctx.fillText(lastChar.char, drop.x, lastChar.y);
           this._ctx.shadowBlur = 0;
@@ -264,13 +283,28 @@ exports.decorateTerm = (Term, { React, notify }) => {
     }
 
     render() {
+      // Helper to convert hex color to rgba
+      const hexToRgba = (hex, alpha) => {
+        const rgb = this._hexToRgb(hex);
+        return `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${alpha})`;
+      };
+      
+      // Determine terminal colors based on configuration
+      const terminalColors = globalConfig.colors.terminal.enableEffect && this.state.rainActive ? {
+        backgroundColor: 'rgba(0, 0, 0, 0)',
+        cursorColor: hexToRgba(globalConfig.colors.terminal.cursor, 0.8),
+        foregroundColor: hexToRgba(globalConfig.colors.terminal.foreground, 1)
+      } : {
+        backgroundColor: this.props.backgroundColor,
+        cursorColor: this.props.cursorColor,
+        foregroundColor: this.props.foregroundColor
+      };
+      
       return [
         React.createElement(Term, Object.assign({}, this.props, {
           onDecorated: this.onDecorated,
           onCursorMove: this.onCursorMove,
-          backgroundColor: this.state.rainActive ? 'rgba(0, 0, 0, 0)' : this.props.backgroundColor,
-          cursorColor: this.state.rainActive ? 'rgba(0, 255, 0, 0.8)' : this.props.cursorColor,
-          foregroundColor: this.state.rainActive ? 'rgba(0, 255, 0, 1)' : this.props.foregroundColor
+          ...terminalColors
         })),
         React.createElement('style', {}, `
           .hyper-rain-overlay {
@@ -312,6 +346,27 @@ exports.decorateConfig = (config) => {
   const rainConfig = config.hyperRain || {};
   globalConfig.opacity = rainConfig.opacity || 0.4;
   globalConfig.blur = rainConfig.blur || '0.5px';
+  
+  // Parse color configuration
+  if (rainConfig.colors) {
+    // Rain color
+    if (rainConfig.colors.rain) {
+      globalConfig.colors.rain = rainConfig.colors.rain;
+    }
+    
+    // Terminal colors
+    if (rainConfig.colors.terminal) {
+      if (rainConfig.colors.terminal.foreground) {
+        globalConfig.colors.terminal.foreground = rainConfig.colors.terminal.foreground;
+      }
+      if (rainConfig.colors.terminal.cursor) {
+        globalConfig.colors.terminal.cursor = rainConfig.colors.terminal.cursor;
+      }
+      if (typeof rainConfig.colors.terminal.enableEffect === 'boolean') {
+        globalConfig.colors.terminal.enableEffect = rainConfig.colors.terminal.enableEffect;
+      }
+    }
+  }
   
   return Object.assign({}, config, {
     css: `

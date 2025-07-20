@@ -18,8 +18,9 @@ The effect activates whenever you type and gracefully fades away when you pause 
 
 - **Type-activated animation** - The rain starts when you type and fades when you stop
 - **Customizable appearance** - Adjust opacity and blur to your liking
+- **Customizable colors** - Change the rain and terminal colors to match your style
 - **Performance optimized** - Smooth animations that won't slow down your terminal
-- **Green terminal theme** - Automatically applies green colors during the effect
+- **Terminal theme integration** - Automatically applies themed colors during the effect
 
 ## 📦 Installation
 
@@ -51,7 +52,15 @@ module.exports = {
     // ... other config
     hyperRain: {
       opacity: 0.4,   // Rain overlay opacity (0.0 - 1.0, default: 0.4)
-      blur: '0.5px'   // Terminal blur during effect (default: '0.5px')
+      blur: '0.5px',  // Terminal blur during effect (default: '0.5px')
+      colors: {       // Color customization (all optional)
+        rain: '#0F0', // Main rain color (default: '#0F0' - green)
+        terminal: {
+          foreground: '#0F0',  // Text color during effect
+          cursor: '#0F0',      // Cursor color during effect
+          enableEffect: true   // Enable/disable terminal color changes
+        }
+      }
     }
   }
 }
@@ -63,6 +72,64 @@ module.exports = {
 |--------|------|---------|-------------|
 | `opacity` | number | `0.4` | Controls the transparency of the rain effect overlay |
 | `blur` | string | `'0.5px'` | Applies a blur filter to the terminal content during the effect |
+| `colors.rain` | string | `'#0F0'` | The color of the digital rain (hex format) |
+| `colors.terminal.foreground` | string | `'#0F0'` | Terminal text color during the effect |
+| `colors.terminal.cursor` | string | `'#0F0'` | Terminal cursor color during the effect |
+| `colors.terminal.enableEffect` | boolean | `true` | Enable/disable terminal color changes during rain effect |
+
+### Color Examples
+
+```javascript
+// Classic Matrix green (default)
+hyperRain: {
+  colors: {
+    rain: '#0F0'
+  }
+}
+
+// Cyberpunk blue
+hyperRain: {
+  colors: {
+    rain: '#00F0FF',
+    terminal: {
+      foreground: '#00F0FF',
+      cursor: '#00F0FF'
+    }
+  }
+}
+
+// Red alert mode
+hyperRain: {
+  colors: {
+    rain: '#FF0000',
+    terminal: {
+      foreground: '#FF0000',
+      cursor: '#FF0000'
+    }
+  }
+}
+
+// Purple haze
+hyperRain: {
+  colors: {
+    rain: '#A020F0',
+    terminal: {
+      foreground: '#A020F0',
+      cursor: '#A020F0'
+    }
+  }
+}
+
+// Rain only - no terminal color changes
+hyperRain: {
+  colors: {
+    rain: '#FFD700', // Gold rain
+    terminal: {
+      enableEffect: false
+    }
+  }
+}
+```
 
 ## 🎮 How it Works
 
